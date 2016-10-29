@@ -70,9 +70,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Glitch\GlitchEffect.cs" />
+    <Compile Include="Assets\Script\DefineManager.cs" />
     <Compile Include="Assets\Script\FileIOManager.cs" />
     <Compile Include="Assets\Script\GraphicResourceManager.cs" />
     <Compile Include="Assets\Script\MainPlaygroundManager.cs" />
+    <Compile Include="Assets\Script\ScreenResolutionConvertManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Glitch\GlitchShader.shader" />

@@ -5,6 +5,7 @@ using System.Collections;
 public class MainPlaygroundManager : MonoBehaviour 
 {
     GraphicResourceManager graphicResourceManager;
+    ScreenResolutionConvertManager screenResolutionConvertManager;
     FileIOManager fileIOManager;
     bool resetFlag;
 
@@ -13,6 +14,7 @@ public class MainPlaygroundManager : MonoBehaviour
     {
         graphicResourceManager = gameObject.AddComponent<GraphicResourceManager>();
         fileIOManager = gameObject.AddComponent<FileIOManager>();
+        screenResolutionConvertManager = gameObject.AddComponent<ScreenResolutionConvertManager>();
 
         resetFlag = true;
 	}
@@ -31,9 +33,10 @@ public class MainPlaygroundManager : MonoBehaviour
 
     void OnGUI()
     {
-        float width = graphicResourceManager.storySprite[0, 0].width, height = graphicResourceManager.storySprite[0, 0].height;
-
-        DrawPartOfImage(graphicResourceManager.storySprite[0, 0], 0.0F, 0.0F, width, height, 1.0F, 1.0F, width - 1.0F, height - 1.0F);
+        float width = graphicResourceManager.bossSprite[0].width, height = graphicResourceManager.bossSprite[0].height;
+        Vector2 drawPoint = screenResolutionConvertManager.SmallToBigConvert(new Vector2(0.1F, 0.1F));
+        Vector2 drawScale = screenResolutionConvertManager.BigResizeConvert(new Vector2(width, height));
+        DrawPartOfImage(graphicResourceManager.bossSprite[0], drawPoint.x, drawPoint.y, drawScale.x, drawScale.y, 1.0F, 1.0F, width - 1.0F, height - 1.0F);
 
     }
 
