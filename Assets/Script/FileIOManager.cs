@@ -9,6 +9,26 @@ public class FileIOManager : MonoBehaviour
     {
 	
 	}
+
+    public void SaveTextFile(string fileName, string data)
+    {
+        if(RuntimePlatform.Android == Application.platform || RuntimePlatform.TizenPlayer == Application.platform ||
+            RuntimePlatform.IPhonePlayer == Application.platform)
+        {
+            fileName = Application.persistentDataPath + "/" + fileName;
+        }
+        System.IO.File.WriteAllText(fileName, data);
+    }
+
+    public string LoadTextFile(string fileName)
+    {
+        if (RuntimePlatform.Android == Application.platform || RuntimePlatform.TizenPlayer == Application.platform ||
+            RuntimePlatform.IPhonePlayer == Application.platform)
+        {
+            fileName = Application.persistentDataPath + "/" + fileName;
+        }
+        return System.IO.File.ReadAllText(fileName);
+    }
 	
     Texture2D GetTargetPathTexture2D(string path)
     {
