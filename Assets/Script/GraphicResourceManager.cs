@@ -38,9 +38,9 @@ public class GraphicResourceManager : MonoBehaviour
     {
         itemSprite = LoadSpriteAndSaveToArray("item/", 1, 5);
         mapSprite = LoadSpriteAndSaveToArray("map/", 1, 4);
-        bossSprite = LoadSpriteAndSaveToArray("th06/boss/", 1, 9);
-        enemySprite = LoadSpriteAndSaveToArray("th06/enemy/", 1, 10);
-        playerSprite = LoadSpriteAndSaveToArray("th06/player/", 1, 4);
+        bossSprite = LoadSpriteAndSaveToArray(DefineManager.developTargetTouhouVersion + "/boss/", 1, 9);
+        enemySprite = LoadSpriteAndSaveToArray(DefineManager.developTargetTouhouVersion + "/enemy/", 1, 10);
+        playerSprite = LoadSpriteAndSaveToArray(DefineManager.developTargetTouhouVersion + "/player/", 1, 4);
 
         storySprite = new Texture2D[th06StoryMemberData.Length, 10];
         int i, t;

@@ -10,6 +10,13 @@ public class FileIOManager : MonoBehaviour
 	
 	}
 
+    public string LoadTextFileFromResource(string fileName)
+    {
+        TextAsset textFile = (TextAsset)Resources.Load(DefineManager.developTargetTouhouVersion + "/story/" + 
+            DefineManager.playingLanguage + "/" + fileName, typeof(TextAsset));
+        return textFile.text;
+    }
+
     public void SaveTextFile(string fileName, string data)
     {
         if(RuntimePlatform.Android == Application.platform || RuntimePlatform.TizenPlayer == Application.platform ||

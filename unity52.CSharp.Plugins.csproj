@@ -104,6 +104,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Glitch\GlitchShader.shader" />
+    <None Include="Assets\Resources\th06\story\ko-kr\story1.txt" />
     <None Include="Assets\Standard Assets\Effects\GlassRefraction\Shaders\GlassStainedBumpDistort.shader" />
     <None Include="Assets\Standard Assets\Effects\ImageEffects\Shaders\BlendModesOverlay.shader" />
     <None Include="Assets\Standard Assets\Effects\ImageEffects\Shaders\BlurEffectConeTaps.shader" />

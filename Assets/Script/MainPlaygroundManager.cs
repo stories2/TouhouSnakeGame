@@ -8,7 +8,7 @@ public class MainPlaygroundManager : MonoBehaviour
     ScreenResolutionConvertManager screenResolutionConvertManager;
     FileIOManager fileIOManager;
     bool resetFlag;
-    string readFile;
+    string readFile, readStoryFile;
 
 	// Use this for initialization
 	void Start ()
@@ -29,8 +29,11 @@ public class MainPlaygroundManager : MonoBehaviour
 
             graphicResourceManager.SetFileIOManager(fileIOManager);
             graphicResourceManager.LoadSpriteResourceToPlayGame();
+            
             fileIOManager.SaveTextFile("test.txt", "helloworld");
             readFile = fileIOManager.LoadTextFile("test.txt");
+
+            readStoryFile = fileIOManager.LoadTextFileFromResource("story1");
         }
 	}
 
@@ -43,6 +46,9 @@ public class MainPlaygroundManager : MonoBehaviour
 
         GUI.Label(new Rect(screenResolutionConvertManager.SmallToBigConvert(new Vector2(0.1F, 0.2F)), 
                             screenResolutionConvertManager.SmallToBigConvert(new Vector2(0.3F, 0.1F))), readFile);
+
+        GUI.Label(new Rect(screenResolutionConvertManager.SmallToBigConvert(new Vector2(0.1F, 0.3F)),
+                            screenResolutionConvertManager.SmallToBigConvert(new Vector2(0.3F, 0.1F))), readStoryFile);
     }
 
     void DrawPartOfImage(Texture2D image, float pos_x, float pos_y, float scale_x, float scale_y, float x, float y, float width, float height)
