@@ -7,8 +7,11 @@ public class MainPlaygroundManager : MonoBehaviour
     GraphicResourceManager graphicResourceManager;
     ScreenResolutionConvertManager screenResolutionConvertManager;
     FileIOManager fileIOManager;
+    ScreenIOManager screenIOManager;
+    ScreenEffectManager screenEffectManager;
     bool resetFlag;
     string readFile, readStoryFile;
+    int touchEvent;
 
 	// Use this for initialization
 	void Start ()
@@ -16,8 +19,11 @@ public class MainPlaygroundManager : MonoBehaviour
         graphicResourceManager = gameObject.AddComponent<GraphicResourceManager>();
         fileIOManager = gameObject.AddComponent<FileIOManager>();
         screenResolutionConvertManager = gameObject.AddComponent<ScreenResolutionConvertManager>();
+        screenIOManager = gameObject.AddComponent<ScreenIOManager>();
+        screenEffectManager = gameObject.AddComponent<ScreenEffectManager>();
 
         resetFlag = true;
+        touchEvent = DefineManager.notTouched;
 	}
 	
 	// Update is called once per frame
@@ -34,6 +40,18 @@ public class MainPlaygroundManager : MonoBehaviour
             readFile = fileIOManager.LoadTextFile("test.txt");
 
             readStoryFile = fileIOManager.LoadTextFileFromResource("story1");
+
+            screenIOManager.SetScreenResolutionConvertManager(screenResolutionConvertManager);
+        }
+
+        touchEvent = screenIOManager.GetMouseEvent();
+        if (touchEvent != DefineManager.notTouched)
+        {
+            Debug.Log("touch event: " + touchEvent);
+            Debug.Log("touch before pos: " + screenIOManager.GetMousePressedPosition());
+            Debug.Log("touch after pos: " + screenIOManager.GetMouseReleasedPosition());
+
+            screenEffectManager.SetEffectTimeAndQuality(1.0F, 10.0F);
         }
 	}
 
