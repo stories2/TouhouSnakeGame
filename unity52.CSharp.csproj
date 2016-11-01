@@ -72,6 +72,7 @@
     <Compile Include="Assets\Glitch\GlitchEffect.cs" />
     <Compile Include="Assets\Script\DefineManager.cs" />
     <Compile Include="Assets\Script\FileIOManager.cs" />
+    <Compile Include="Assets\Script\GameAdsManager.cs" />
     <Compile Include="Assets\Script\GraphicResourceManager.cs" />
     <Compile Include="Assets\Script\MainPlaygroundManager.cs" />
     <Compile Include="Assets\Script\PlayMapManager.cs" />
@@ -81,6 +82,19 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Glitch\GlitchShader.shader" />
+    <None Include="Assets\Plugins\Android\unityads\AndroidManifest.xml" />
+    <None Include="Assets\Plugins\Android\unityads\build.xml" />
+    <None Include="Assets\Plugins\Android\unityads\proguard-project.txt" />
+    <None Include="Assets\Plugins\Android\unityads\res\drawable\unityads_background_button_pause.xml" />
+    <None Include="Assets\Plugins\Android\unityads\res\drawable\unityads_icon_play.xml" />
+    <None Include="Assets\Plugins\Android\unityads\res\drawable\unityads_icon_speaker_base.xml" />
+    <None Include="Assets\Plugins\Android\unityads\res\drawable\unityads_icon_speaker_triangle.xml" />
+    <None Include="Assets\Plugins\Android\unityads\res\drawable\unityads_icon_speaker_waves.xml" />
+    <None Include="Assets\Plugins\Android\unityads\res\layout\unityads_button_audio_toggle.xml" />
+    <None Include="Assets\Plugins\Android\unityads\res\layout\unityads_button_pause.xml" />
+    <None Include="Assets\Plugins\Android\unityads\res\layout\unityads_view_video_paused.xml" />
+    <None Include="Assets\Plugins\Android\unityads\res\layout\unityads_view_video_play.xml" />
+    <None Include="Assets\Plugins\Android\unityads\res\values\strings.xml" />
     <None Include="Assets\Resources\th06\story\ko-kr\story1.txt" />
     <None Include="Assets\Standard Assets\Effects\GlassRefraction\Shaders\GlassStainedBumpDistort.shader" />
     <None Include="Assets\Standard Assets\Effects\ImageEffects\Shaders\BlendModesOverlay.shader" />

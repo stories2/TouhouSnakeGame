@@ -8,4 +8,5 @@ public class DefineManager : MonoBehaviour
     public static int touchedSomewhere = 1, notTouched = -1, gestureTouchedDirectionLeftToRight = 2,
         gestureTouchedDirectionRightToLeft = 3, gestureTouchedDirectionBottomToTop = 4,
         gestureTouchedDirectionTopToBottom = 5, mapScale = 10;
+    public static string iosAdsID = "1185973", androidAdsID = "1185974";
 }

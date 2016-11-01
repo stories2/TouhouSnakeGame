@@ -11,8 +11,9 @@ public class MainPlaygroundManager : MonoBehaviour
     ScreenEffectManager screenEffectManager;
     GUIStyle guiStyleManager;
     PlayMapManager playMapManager;
+    GameAdsManager gameAdsManager;
     bool resetFlag;
-    string readFile, readStoryFile;
+    string readFile, readStoryFile, adsWatchedStatus;
     int touchEvent;
 
 	// Use this for initialization
@@ -24,11 +25,13 @@ public class MainPlaygroundManager : MonoBehaviour
         screenIOManager = gameObject.AddComponent<ScreenIOManager>();
         screenEffectManager = gameObject.AddComponent<ScreenEffectManager>();
         playMapManager = gameObject.AddComponent<PlayMapManager>();
+        gameAdsManager = gameObject.AddComponent<GameAdsManager>();
 
         guiStyleManager = new GUIStyle();
 
         resetFlag = true;
         touchEvent = DefineManager.notTouched;
+        adsWatchedStatus = "not watched";
 	}
 	
 	// Update is called once per frame
@@ -79,6 +82,23 @@ public class MainPlaygroundManager : MonoBehaviour
 
         GUI.Label(new Rect(screenResolutionConvertManager.SmallToBigConvert(new Vector2(0.1F, 0.3F)),
                             screenResolutionConvertManager.SmallToBigConvert(new Vector2(0.3F, 0.1F))), readStoryFile, guiStyleManager);
+
+        //ads 
+
+        GUI.Label(new Rect(screenResolutionConvertManager.SmallToBigConvert(new Vector2(0.1F, 0.4F)),
+                            screenResolutionConvertManager.SmallToBigConvert(new Vector2(0.3F, 0.1F))), adsWatchedStatus, guiStyleManager);
+
+        if(GUI.Button(new Rect(screenResolutionConvertManager.SmallToBigConvert(new Vector2(0.1F, 0.5F)),
+                            screenResolutionConvertManager.SmallToBigConvert(new Vector2(0.3F, 0.1F))), "Show Ads", guiStyleManager))
+        {
+            adsWatchedStatus = "not watched";
+            gameAdsManager.ShowUnityAdsToClient();
+        }
+
+        if(gameAdsManager.IsClientWatchedAds())
+        {
+            adsWatchedStatus = "watched";
+        }
     }
 
     void DrawMapBasedOnPlayMapManager()
