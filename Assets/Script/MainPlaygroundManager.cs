@@ -9,6 +9,7 @@ public class MainPlaygroundManager : MonoBehaviour
     FileIOManager fileIOManager;
     ScreenIOManager screenIOManager;
     ScreenEffectManager screenEffectManager;
+    GUIStyle guiStyleManager;
     bool resetFlag;
     string readFile, readStoryFile;
     int touchEvent;
@@ -21,6 +22,8 @@ public class MainPlaygroundManager : MonoBehaviour
         screenResolutionConvertManager = gameObject.AddComponent<ScreenResolutionConvertManager>();
         screenIOManager = gameObject.AddComponent<ScreenIOManager>();
         screenEffectManager = gameObject.AddComponent<ScreenEffectManager>();
+
+        guiStyleManager = new GUIStyle();
 
         resetFlag = true;
         touchEvent = DefineManager.notTouched;
@@ -62,11 +65,12 @@ public class MainPlaygroundManager : MonoBehaviour
         Vector2 drawScale = screenResolutionConvertManager.BigResizeConvert(new Vector2(width, height));
         DrawPartOfImage(graphicResourceManager.bossSprite[0], drawPoint.x, drawPoint.y, drawScale.x, drawScale.y, 1.0F, 1.0F, width - 1.0F, height - 1.0F);
 
+        guiStyleManager.fontSize = screenResolutionConvertManager.CalculateBasedOnScreenResolutionFontSize(50.0F);
         GUI.Label(new Rect(screenResolutionConvertManager.SmallToBigConvert(new Vector2(0.1F, 0.2F)), 
-                            screenResolutionConvertManager.SmallToBigConvert(new Vector2(0.3F, 0.1F))), readFile);
+                            screenResolutionConvertManager.SmallToBigConvert(new Vector2(0.3F, 0.1F))), readFile, guiStyleManager);
 
         GUI.Label(new Rect(screenResolutionConvertManager.SmallToBigConvert(new Vector2(0.1F, 0.3F)),
-                            screenResolutionConvertManager.SmallToBigConvert(new Vector2(0.3F, 0.1F))), readStoryFile);
+                            screenResolutionConvertManager.SmallToBigConvert(new Vector2(0.3F, 0.1F))), readStoryFile, guiStyleManager);
     }
 
     void DrawPartOfImage(Texture2D image, float pos_x, float pos_y, float scale_x, float scale_y, float x, float y, float width, float height)

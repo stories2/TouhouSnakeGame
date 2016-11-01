@@ -7,9 +7,15 @@ public class ScreenResolutionConvertManager : MonoBehaviour
 	// Use this for initialization
 	void Start () 
     {
+
         resizeScaleWidth = Screen.width / DefineManager.standardScreenWidth;
         resizeScaleHeight = Screen.height / DefineManager.standardScreenHeight;
 	}
+
+    public int CalculateBasedOnScreenResolutionFontSize(float targetFontSize)
+    {
+        return Mathf.FloorToInt(Mathf.Min(targetFontSize * resizeScaleWidth, targetFontSize * resizeScaleHeight));
+    }
 
     public Vector2 BigToSmallConvert(Vector2 targetData)
     {
