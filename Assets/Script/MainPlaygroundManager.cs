@@ -10,6 +10,7 @@ public class MainPlaygroundManager : MonoBehaviour
     ScreenIOManager screenIOManager;
     ScreenEffectManager screenEffectManager;
     GUIStyle guiStyleManager;
+    PlayMapManager playMapManager;
     bool resetFlag;
     string readFile, readStoryFile;
     int touchEvent;
@@ -22,6 +23,7 @@ public class MainPlaygroundManager : MonoBehaviour
         screenResolutionConvertManager = gameObject.AddComponent<ScreenResolutionConvertManager>();
         screenIOManager = gameObject.AddComponent<ScreenIOManager>();
         screenEffectManager = gameObject.AddComponent<ScreenEffectManager>();
+        playMapManager = gameObject.AddComponent<PlayMapManager>();
 
         guiStyleManager = new GUIStyle();
 
@@ -60,11 +62,17 @@ public class MainPlaygroundManager : MonoBehaviour
 
     void OnGUI()
     {
+        //draw map
+        DrawMapBasedOnPlayMapManager();
+
+        //draw character
         float width = graphicResourceManager.bossSprite[0].width, height = graphicResourceManager.bossSprite[0].height;
         Vector2 drawPoint = screenResolutionConvertManager.SmallToBigConvert(new Vector2(0.1F, 0.1F));
         Vector2 drawScale = screenResolutionConvertManager.BigResizeConvert(new Vector2(width, height));
-        DrawPartOfImage(graphicResourceManager.bossSprite[0], drawPoint.x, drawPoint.y, drawScale.x, drawScale.y, 1.0F, 1.0F, width - 1.0F, height - 1.0F);
+        //DrawPartOfImageEasier(graphicResourceManager.bossSprite[0], drawPoint.x, drawPoint.y, drawScale.x, drawScale.y, 1.0F, 1.0F, width - 1.0F, height - 1.0F);
+        DrawPartOfImageWithAutoCalculate(graphicResourceManager.bossSprite[0], drawPoint.x, drawPoint.y, drawScale.x, drawScale.y, 4.0F, 4.0F, 5);
 
+        //draw text
         guiStyleManager.fontSize = screenResolutionConvertManager.CalculateBasedOnScreenResolutionFontSize(50.0F);
         GUI.Label(new Rect(screenResolutionConvertManager.SmallToBigConvert(new Vector2(0.1F, 0.2F)), 
                             screenResolutionConvertManager.SmallToBigConvert(new Vector2(0.3F, 0.1F))), readFile, guiStyleManager);
@@ -73,7 +81,41 @@ public class MainPlaygroundManager : MonoBehaviour
                             screenResolutionConvertManager.SmallToBigConvert(new Vector2(0.3F, 0.1F))), readStoryFile, guiStyleManager);
     }
 
-    void DrawPartOfImage(Texture2D image, float pos_x, float pos_y, float scale_x, float scale_y, float x, float y, float width, float height)
+    void DrawMapBasedOnPlayMapManager()
+    {
+        int[,] mapData = playMapManager.GetNowPlayGroundEarthMap();
+        int i, t;
+        float drawStartPointX = (DefineManager.standardScreenWidth - DefineManager.mapScale * DefineManager.eachBlockScale) / 2,
+                drawStartPointY = (DefineManager.standardScreenHeight - DefineManager.mapScale * DefineManager.eachBlockScale) / 2;
+        for(i = 0; i < DefineManager.mapScale; i += 1)
+        {
+            for(t = 0; t < DefineManager.mapScale; t += 1)
+            {
+                Vector2 drawPoint = screenResolutionConvertManager.BigResizeConvert(new Vector2(drawStartPointX + DefineManager.eachBlockScale * t, 
+                    drawStartPointY + DefineManager.eachBlockScale * i));
+                Vector2 drawScale = screenResolutionConvertManager.BigResizeConvert(new Vector2(DefineManager.eachBlockScale, DefineManager.eachBlockScale));
+                DrawPartOfImageWithAutoCalculate(graphicResourceManager.mapSprite[0], drawPoint.x, drawPoint.y, drawScale.x, drawScale.y, 8.0F, 13.0F, mapData[i, t]);
+            }
+        }
+    }
+
+    void DrawPartOfImageWithAutoCalculate(Texture2D image, float drawPositionX, float drawPositionY, float drawScaleWidth,
+        float drawScaleHeight, float imageWidthSplitSize, float imageHeightSplitSize, int imageSplitNumber)
+    {
+        //imageSplitSize: 0 ~ n
+        if (image == null)
+            return;
+        float imageSplitWidth = image.width / imageWidthSplitSize, imageSplitHeight = image.height / imageHeightSplitSize,
+            foundTargetImageSplitX = 0.0F, foundTargetImageSplitY = 0.0F, imageWidth = image.width, imageHeight = image.height;
+
+        foundTargetImageSplitX = imageSplitWidth * (imageSplitNumber % imageWidthSplitSize);
+        foundTargetImageSplitY = imageSplitHeight * Mathf.Floor((imageSplitNumber / imageHeightSplitSize));
+
+        DrawPartOfImageEasier(image, drawPositionX, drawPositionY, drawScaleWidth, drawScaleHeight, foundTargetImageSplitX,
+            foundTargetImageSplitY, imageSplitWidth, imageSplitHeight - 1.0F);
+    }
+
+    void DrawPartOfImageEasier(Texture2D image, float pos_x, float pos_y, float scale_x, float scale_y, float x, float y, float width, float height)
     {
         float texture_width = image.width, texture_height = image.height;
         Graphics.DrawTexture(new Rect(pos_x, pos_y, scale_x, scale_y), image, new Rect(x / texture_width, (texture_height - height - y) / texture_height, width / texture_width,

@@ -74,6 +74,7 @@
     <Compile Include="Assets\Script\FileIOManager.cs" />
     <Compile Include="Assets\Script\GraphicResourceManager.cs" />
     <Compile Include="Assets\Script\MainPlaygroundManager.cs" />
+    <Compile Include="Assets\Script\PlayMapManager.cs" />
     <Compile Include="Assets\Script\ScreenEffectManager.cs" />
     <Compile Include="Assets\Script\ScreenIOManager.cs" />
     <Compile Include="Assets\Script\ScreenResolutionConvertManager.cs" />
