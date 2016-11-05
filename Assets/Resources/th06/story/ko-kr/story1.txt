@@ -1,2 +1,17 @@
-helloworld
-can u see me?
+﻿mapType=none
+workingVersion=1
+storyLength=3
+mapScale=-1
+mapdata=0
+itemLength=0
+itemData=0
+playerXY=0
+timeLimit=0
+spellCard=-1
+autoSkipTime=30
+startOfGame
+left=hide&char=1&right=show&char=2
+테스트1
+left=show&char=2&right=hide&char=3
+테스트2
+left=show&char=3&right=show&char=4
